@@ -1,10 +1,20 @@
 import type { NextConfig } from "next";
 
+// Determine if we are running in GitHub Actions
+const isGithubActions = process.env.GITHUB_ACTIONS || false;
+let basePath = "";
+
+if (isGithubActions) {
+  // Extract repository name (e.g., 'soumay-shopify' from 'SoumaySoni/soumay-shopify')
+  const repo = process.env.GITHUB_REPOSITORY?.replace(/.*?\//, "") || "soumay-shopify";
+  basePath = `/${repo}`;
+}
+
 const nextConfig: NextConfig = {
+  basePath: basePath,
   output: "export",
-  // Ignore typescript and eslint during production github pages build if we just want it to deploy quickly, but keeping them active is better practice. Let's stick to standard.
   images: {
-    unoptimized: true, // Needed for static export when using next/image
+    unoptimized: true, 
   },
 };
 
