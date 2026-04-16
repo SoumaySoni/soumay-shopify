@@ -1,0 +1,3 @@
+module.exports=[33125,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(74330);a.n(d("[project]/Desktop/soumay-shopify/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},34985,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(74330);a.n(d("[project]/Desktop/soumay-shopify/node_modules/next/dist/client/components/builtin/global-error.js"))},99106,a=>{"use strict";a.i(33125);var b=a.i(34985);a.n(b)},93740,a=>{a.n(a.i(99106))}];
+
+//# sourceMappingURL=0fdf_next_dist_client_components_builtin_global-error_042d26_.js.map
