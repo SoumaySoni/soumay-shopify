@@ -10,7 +10,7 @@ config.autoAddCss = false;
 import Header from "@/components/Header";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",  
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
@@ -32,7 +32,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <body className="bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col font-sans selection:bg-indigo-500/30">
-        <Header />
         <main className="flex-1 flex flex-col relative">
           {children}
         </main>

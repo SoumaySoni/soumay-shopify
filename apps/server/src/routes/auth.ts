@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import prisma from '../utils/prisma';
 
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret';
+
+// In-memory user store for demonstration purposes
+const users: any[] = [];
 
 // User Registration Endpoint
 router.post('/register', async (req, res) => {
@@ -16,9 +18,7 @@ router.post('/register', async (req, res) => {
     }
 
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email }
-    });
+    const existingUser = users.find(u => u.email === email);
 
     if (existingUser) {
       return res.status(409).json({ error: 'User with this email already exists' });
@@ -29,13 +29,14 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Create the user in database
-    const newUser = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-      }
-    });
+    const newUser = {
+      id: Date.now().toString(),
+      name,
+      email,
+      password: hashedPassword,
+      createdAt: new Date()
+    };
+    users.push(newUser);
 
     // Return success without the hashed password
     res.status(201).json({
@@ -63,9 +64,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Find the user
-    const user = await prisma.user.findUnique({
-      where: { email }
-    });
+    const user = users.find(u => u.email === email);
 
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });

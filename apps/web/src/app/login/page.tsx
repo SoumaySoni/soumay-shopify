@@ -23,7 +23,7 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      
+
       const data = await res.json();
 
       if (!res.ok) {
@@ -33,7 +33,7 @@ export default function LoginPage() {
       // Save token securely (ideally HTTP-only cookies in prod, localStorage for starting)
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
-      
+
       router.push('/');
     } catch (err: any) {
       setError(err.message);

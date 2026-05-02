@@ -1,8 +1,22 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStore, faRightFromBracket, faHouse, faBoxOpen, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 export default function Header() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    // Redirect to login page
+    router.push('/login');
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/70 dark:bg-[#0a0a0a]/70 border-b border-gray-200/50 dark:border-gray-800/50 shadow-sm transition-all duration-300">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +53,10 @@ export default function Header() {
 
           {/* Logout Button on Right */}
           <div className="flex items-center">
-            <button className="flex items-center gap-2 bg-gray-100 hover:bg-red-50 dark:bg-gray-800/80 dark:hover:bg-red-950/30 text-gray-700 dark:text-gray-200 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-900 border border-transparent px-4 py-2 rounded-xl font-medium transition-all duration-300 hover:shadow-md active:scale-95 group">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 bg-gray-100 hover:bg-red-50 dark:bg-gray-800/80 dark:hover:bg-red-950/30 text-gray-700 dark:text-gray-200 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-900 border border-transparent px-4 py-2 rounded-xl font-medium transition-all duration-300 hover:shadow-md active:scale-95 group"
+            >
               <span>Logout</span>
               <FontAwesomeIcon icon={faRightFromBracket} className="w-4 h-4 text-gray-400 group-hover:text-red-500 transition-colors" />
             </button>
